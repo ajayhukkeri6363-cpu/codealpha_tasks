@@ -106,14 +106,14 @@ A modern WebRTC peer-to-peer audio/video conferencing platform with synchronized
 
 ---
 
-## 📊 Project Comparison Table
+## 📊 Project Comparison & Live Deployments
 
-| Project | Domain | Frontend | Backend | Database | Real-Time | Status |
+| Project | Domain | Frontend (Vercel) | Backend (Render) | Database (Atlas) | Real-Time Engine | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :---: |
-| **ShopSphere** | E-Commerce | React 18, Vite, Tailwind CSS | Node.js, Express REST API | MongoDB, Mongoose | REST Polling | 🟢 Completed |
-| **Pulse** | Social Media | React 18, Vite, Tailwind CSS | Node.js, Express REST API | MongoDB, Mongoose | Socket.io Notifications | 🟢 Completed |
-| **FlowBoard** | Project Management | React 18, Vite, Tailwind CSS | Node.js, Express REST API | MongoDB, Mongoose | Socket.io Kanban Sync | 🟢 Completed |
-| **Nexus** | Real-Time Video & Canvas | React 18, Vite, Tailwind CSS | Node.js, Express REST API | MongoDB, Mongoose | WebRTC Mesh + Socket.io | 🟢 Completed |
+| **ShopSphere** | E-Commerce | [Live Web App](https://shopsphere-frontend-pi.vercel.app) | [Live REST API](https://shopsphere-backend-00jm.onrender.com) | `shopsphere_prod` | REST Polling | 🟢 Deployed & Live |
+| **Pulse** | Social Media | Deployed on Vercel | Deployed on Render | `pulse_prod` | Socket.io Push Notifications | 🟢 Deployed & Live |
+| **FlowBoard** | Project Management | Deployed on Vercel | Deployed on Render | `flowboard_prod` | Socket.io Kanban Sync | 🟢 Deployed & Live |
+| **Nexus** | Real-Time Video & Canvas | Deployed on Vercel | Deployed on Render | `nexus_prod` | WebRTC Mesh + Socket.io | 🟢 Deployed & Live |
 
 ---
 
