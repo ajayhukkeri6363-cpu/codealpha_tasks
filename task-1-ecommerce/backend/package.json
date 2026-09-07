@@ -16,8 +16,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb-memory-server": "^10.0.0",
     "mongoose": "^8.4.0",
-    "morgan": "^1.10.0",
-    "shopsphere": "file:.."
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
