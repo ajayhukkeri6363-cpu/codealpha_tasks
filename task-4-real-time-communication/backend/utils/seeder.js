@@ -40,7 +40,9 @@ const usersData = [
 
 const seedData = async () => {
   try {
-    await connectDB();
+    if (mongoose.connection.readyState === 0) {
+      await connectDB();
+    }
 
     console.log('[Nexus Seeder] Purging existing database collections...');
     await User.deleteMany();
