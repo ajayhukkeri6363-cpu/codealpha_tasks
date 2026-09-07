@@ -5,9 +5,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
-
 dotenv.config();
-connectDB();
 
 const app = express();
 const server = http.createServer(app);
@@ -62,6 +60,23 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5002;
-server.listen(PORT, () => {
-  console.log(`[FlowBoard Server] Running on http://localhost:${PORT}`);
+
+connectDB().then(async () => {
+  try {
+    const Project = require('./models/Project');
+    const seedData = require('./utils/seeder');
+    const count = await Project.countDocuments();
+    if (count === 0) {
+      console.log('[FlowBoard Server] Database empty. Auto-seeding initial projects and tasks...');
+      await seedData();
+    }
+  } catch (err) {
+    console.warn('[FlowBoard Server] Auto-seed notice:', err.message);
+  }
+
+  server.listen(PORT, () => {
+    console.log(`[FlowBoard Server] Running on http://localhost:${PORT}`);
+  });
 });
+
+module.exports = { app, server };

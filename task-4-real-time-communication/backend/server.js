@@ -8,7 +8,6 @@ const ChatMessage = require('./models/ChatMessage');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 dotenv.config();
-connectDB();
 
 const app = express();
 const server = http.createServer(app);
@@ -152,6 +151,23 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5003;
-server.listen(PORT, () => {
-  console.log(`[Nexus Server] Running on http://localhost:${PORT}`);
+
+connectDB().then(async () => {
+  try {
+    const Meeting = require('./models/Meeting');
+    const seedData = require('./utils/seeder');
+    const count = await Meeting.countDocuments();
+    if (count === 0) {
+      console.log('[Nexus Server] Database empty. Auto-seeding initial rooms and users...');
+      await seedData();
+    }
+  } catch (err) {
+    console.warn('[Nexus Server] Auto-seed notice:', err.message);
+  }
+
+  server.listen(PORT, () => {
+    console.log(`[Nexus Server] Running on http://localhost:${PORT}`);
+  });
 });
+
+module.exports = { app, server };

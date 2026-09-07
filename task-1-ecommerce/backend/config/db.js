@@ -16,7 +16,13 @@ const connectDB = async () => {
     console.log(`[Database] Initializing embedded MongoDB Memory Server for seamless local execution...`);
 
     try {
-      const { MongoMemoryServer } = require('mongodb-memory-server');
+      let MongoMemoryServer;
+      try {
+        MongoMemoryServer = require('../../task-3-project-management/backend/node_modules/mongodb-memory-server').MongoMemoryServer;
+      } catch (e) {
+        MongoMemoryServer = require('mongodb-memory-server').MongoMemoryServer;
+      }
+
       mongoMemoryServer = await MongoMemoryServer.create();
       const memoryUri = mongoMemoryServer.getUri();
       

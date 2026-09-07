@@ -91,11 +91,17 @@ const seedData = async () => {
     });
 
     console.log('[Nexus Seeder] Nexus database seeded successfully with 4 Users, 2 Rooms, and Messages!');
-    process.exit(0);
+    return true;
   } catch (error) {
     console.error('[Nexus Seeder] Error seeding data:', error);
-    process.exit(1);
+    throw error;
   }
 };
 
-seedData();
+if (require.main === module) {
+  seedData()
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
+}
+
+module.exports = seedData;

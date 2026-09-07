@@ -235,11 +235,17 @@ const seedData = async () => {
     }
 
     console.log('[FlowBoard Seeder] Database seeded successfully with 4 Users, 2 Projects, 6 Tasks, Comments & Activities!');
-    process.exit(0);
+    return true;
   } catch (error) {
     console.error('[FlowBoard Seeder] Error seeding data:', error);
-    process.exit(1);
+    throw error;
   }
 };
 
-seedData();
+if (require.main === module) {
+  seedData()
+    .then(() => process.exit(0))
+    .catch(() => process.exit(1));
+}
+
+module.exports = seedData;
