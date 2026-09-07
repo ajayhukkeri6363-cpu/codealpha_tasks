@@ -35,8 +35,34 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {});
 });
 
-// Middleware
-app.use(cors({ origin: '*', credentials: true }));
+// CORS Configuration - Permissive for Vercel production & preview deployments
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5174',
+  'http://localhost:5173',
+  'http://localhost:5001',
+  'http://localhost:3000',
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.onrender.com') ||
+        process.env.NODE_ENV !== 'production'
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -45,12 +71,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', app: 'Pulse Social API', uptime: process.uptime() });
+app.get(['/api/health', '/health'], (req, res) => {
+  res.json({ status: 'ok', app: 'Pulse Social API', uptime: process.uptime(), timestamp: new Date() });
 });
 
 // Reseed endpoint
-app.post('/api/seed', async (req, res, next) => {
+app.post(['/api/seed', '/seed'], async (req, res, next) => {
   try {
     await seedPulseData();
     res.json({ success: true, message: 'Pulse database reseeded successfully' });
@@ -59,13 +85,32 @@ app.post('/api/seed', async (req, res, next) => {
   }
 });
 
-// Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/posts', require('./routes/postRoutes'));
-app.use('/api/comments', require('./routes/commentRoutes'));
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/notifications', require('./routes/notificationRoutes'));
-app.use('/api/saved', require('./routes/savedRoutes'));
+// Import route modules
+const authRoutes = require('./routes/authRoutes');
+const postRoutes = require('./routes/postRoutes');
+const commentRoutes = require('./routes/commentRoutes');
+const userRoutes = require('./routes/userRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const savedRoutes = require('./routes/savedRoutes');
+
+// Routes - Dual mounting (/api/... and /...) for production URL resilience
+app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
+
+app.use('/api/posts', postRoutes);
+app.use('/posts', postRoutes);
+
+app.use('/api/comments', commentRoutes);
+app.use('/comments', commentRoutes);
+
+app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
+
+app.use('/api/notifications', notificationRoutes);
+app.use('/notifications', notificationRoutes);
+
+app.use('/api/saved', savedRoutes);
+app.use('/saved', savedRoutes);
 
 app.get('/', (req, res) => {
   res.send('Pulse Social Media REST API is running.');
