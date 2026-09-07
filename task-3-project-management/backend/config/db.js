@@ -4,7 +4,8 @@ let mongoMemoryServer = null;
 
 const connectDB = async () => {
   const isProduction = process.env.NODE_ENV === 'production';
-  const uri = process.env.MONGODB_URI || process.env.MONGO_URI;
+  const rawUri = process.env.MONGODB_URI || process.env.MONGO_URI;
+  const uri = rawUri ? rawUri.trim() : '';
 
   // In production (or whenever MONGODB_URI/MONGO_URI is provided), connect directly to Atlas
   if (isProduction || uri) {
@@ -24,6 +25,13 @@ const connectDB = async () => {
       return conn;
     } catch (error) {
       console.error(`[FlowBoard DB Fatal Error] Failed to connect to MongoDB Atlas: ${error.message}`);
+      if (error.message.includes('Authentication failed') || error.message.includes('bad auth')) {
+        console.error('Diagnostic Check:');
+        console.error('1. Verify your MongoDB Atlas Database User credentials under Atlas > Database Access.');
+        console.error('2. Ensure no literal angle brackets (< or >) remain in MONGODB_URI.');
+        console.error('3. If your password contains special characters (@, #, %, &, +, :, etc.), ensure they are URL-encoded.');
+        console.error('4. Verify Network Access in MongoDB Atlas allows IP 0.0.0.0/0.');
+      }
       process.exit(1);
     }
   }
