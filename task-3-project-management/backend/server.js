@@ -96,6 +96,17 @@ app.get(['/api/health', '/health'], (req, res) => {
   res.json({ status: 'healthy', service: 'FlowBoard API', time: new Date() });
 });
 
+// Reseed endpoint for cloud deployment evaluation
+app.post(['/api/seed', '/seed'], async (req, res, next) => {
+  try {
+    const seedData = require('./utils/seeder');
+    await seedData();
+    res.json({ success: true, message: 'FlowBoard database reseeded successfully' });
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.get('/', (req, res) => {
   res.send('FlowBoard Project Management REST API is running.');
 });

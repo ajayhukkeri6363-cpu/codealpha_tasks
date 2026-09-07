@@ -181,6 +181,17 @@ app.get(['/api/health', '/health'], (req, res) => {
   res.json({ status: 'healthy', service: 'Nexus Communication API', time: new Date() });
 });
 
+// Reseed endpoint for cloud deployment evaluation
+app.post(['/api/seed', '/seed'], async (req, res, next) => {
+  try {
+    const seedData = require('./utils/seeder');
+    await seedData();
+    res.json({ success: true, message: 'Nexus database reseeded successfully' });
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.get('/', (req, res) => {
   res.send('Nexus Real-Time Communication REST API & WebRTC Signaling Gateway is running.');
 });
