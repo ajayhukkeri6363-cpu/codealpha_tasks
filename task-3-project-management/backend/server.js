@@ -43,17 +43,61 @@ io.on('connection', (socket) => {
   });
 });
 
-app.use(cors());
+// CORS Configuration - Permissive for Vercel production & preview deployments
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5175',
+  'http://localhost:5173',
+  'http://localhost:5002',
+  'http://localhost:3000',
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.onrender.com') ||
+        process.env.NODE_ENV !== 'production'
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  })
+);
 app.use(express.json());
 
-// API Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/projects', require('./routes/projectRoutes'));
-app.use('/api/tasks', require('./routes/taskRoutes'));
-app.use('/api/analytics', require('./routes/analyticsRoutes'));
+// Import route modules
+const authRoutes = require('./routes/authRoutes');
+const projectRoutes = require('./routes/projectRoutes');
+const taskRoutes = require('./routes/taskRoutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
 
-app.get('/api/health', (req, res) => {
+// Dual mounting (/api/... and /...) for production URL resilience
+app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
+
+app.use('/api/projects', projectRoutes);
+app.use('/projects', projectRoutes);
+
+app.use('/api/tasks', taskRoutes);
+app.use('/tasks', taskRoutes);
+
+app.use('/api/analytics', analyticsRoutes);
+app.use('/analytics', analyticsRoutes);
+
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({ status: 'healthy', service: 'FlowBoard API', time: new Date() });
+});
+
+app.get('/', (req, res) => {
+  res.send('FlowBoard Project Management REST API is running.');
 });
 
 app.use(notFound);
@@ -75,7 +119,7 @@ connectDB().then(async () => {
   }
 
   server.listen(PORT, () => {
-    console.log(`[FlowBoard Server] Running on http://localhost:${PORT}`);
+    console.log(`[FlowBoard Server] Running on port ${PORT}`);
   });
 });
 
