@@ -11,11 +11,17 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (!user) return;
 
-    const socketUrl = import.meta.env.VITE_API_URL
-      ? import.meta.env.VITE_API_URL.replace('/api', '')
-      : 'http://localhost:5003';
+    const getSocketURL = () => {
+      if (import.meta.env.VITE_SOCKET_URL) {
+        return import.meta.env.VITE_SOCKET_URL.replace(/\/+$/, '');
+      }
+      if (import.meta.env.VITE_API_URL) {
+        return import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '').replace(/\/+$/, '');
+      }
+      return 'http://localhost:5003';
+    };
 
-    const s = io(socketUrl, {
+    const s = io(getSocketURL(), {
       transports: ['websocket', 'polling'],
     });
 
