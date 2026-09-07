@@ -26,8 +26,9 @@
 6. [Screenshots](#-screenshots)
 7. [Technology Stack](#-technology-stack)
 8. [CodeAlpha Requirements](#-codealpha-requirements)
-9. [Repository Structure](#-repository-structure)
-10. [License](#-license)
+9. [Production Deployment Guide](DEPLOYMENT.md)
+10. [Repository Structure](#-repository-structure)
+11. [License](#-license)
 
 ---
 
