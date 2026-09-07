@@ -12,13 +12,33 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+// CORS Configuration - Permissive for Vercel production & preview deployments
+const allowedOrigins = [
+  'https://shopsphere-frontend-pi.vercel.app',
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'http://localhost:5000',
+  'http://localhost:3000',
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: '*',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, Postman)
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.onrender.com') ||
+        process.env.NODE_ENV !== 'production'
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   })
 );
 app.use(express.json());
@@ -29,7 +49,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Health Check route
-app.get('/api/health', (req, res) => {
+app.get(['/api/health', '/health'], (req, res) => {
   res.json({
     status: 'ok',
     app: 'ShopSphere API',
@@ -39,7 +59,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Seed API endpoint for instant re-seeding
-app.post('/api/seed', async (req, res, next) => {
+app.post(['/api/seed', '/seed'], async (req, res, next) => {
   try {
     await seedData();
     res.json({
@@ -51,13 +71,32 @@ app.post('/api/seed', async (req, res, next) => {
   }
 });
 
-// Mount Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/products', require('./routes/productRoutes'));
-app.use('/api/cart', require('./routes/cartRoutes'));
-app.use('/api/orders', require('./routes/orderRoutes'));
-app.use('/api/reviews', require('./routes/reviewRoutes'));
-app.use('/api/admin', require('./routes/adminRoutes'));
+// Import route handlers
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+
+// Mount Routes - Dual mounting (/api/... and /...) for production URL resilience
+app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
+
+app.use('/api/products', productRoutes);
+app.use('/products', productRoutes);
+
+app.use('/api/cart', cartRoutes);
+app.use('/cart', cartRoutes);
+
+app.use('/api/orders', orderRoutes);
+app.use('/orders', orderRoutes);
+
+app.use('/api/reviews', reviewRoutes);
+app.use('/reviews', reviewRoutes);
+
+app.use('/api/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 
 // Root route
 app.get('/', (req, res) => {

@@ -1,7 +1,22 @@
 import axios from 'axios';
 
+// Normalize the baseURL so it is completely resilient in both local dev and production:
+// - If VITE_API_URL is unset: returns '/api' (leverages Vite dev proxy)
+// - If VITE_API_URL is 'https://shopsphere-backend-00jm.onrender.com': returns 'https://shopsphere-backend-00jm.onrender.com/api'
+// - If VITE_API_URL is 'https://shopsphere-backend-00jm.onrender.com/api': returns 'https://shopsphere-backend-00jm.onrender.com/api'
+// - Handles any trailing slashes automatically
+const getBaseURL = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) return '/api';
+  const trimmed = envUrl.trim().replace(/\/+$/, '');
+  if (!trimmed.endsWith('/api')) {
+    return `${trimmed}/api`;
+  }
+  return trimmed;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: getBaseURL(),
   headers: {
     'Content-Type': 'application/json',
   },
@@ -35,12 +50,13 @@ api.interceptors.response.use(
       error.message ||
       'An unexpected network error occurred';
     
-    // Auto-logout if token is expired/invalid
-    if (error.response?.status === 401 && !error.config.url.includes('/auth/login')) {
+    // Auto-logout if token is expired/invalid (except on login/register endpoints)
+    if (
+      error.response?.status === 401 &&
+      !error.config?.url?.includes('auth/login') &&
+      !error.config?.url?.includes('auth/register')
+    ) {
       localStorage.removeItem('shopsphere_user');
-      if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
-        // Option to trigger redirect or let AuthContext handle state
-      }
     }
 
     return Promise.reject(new Error(message));
