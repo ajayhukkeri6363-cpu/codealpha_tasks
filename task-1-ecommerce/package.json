@@ -1,0 +1,16 @@
+{
+  "name": "shopsphere-ecommerce",
+  "version": "1.0.0",
+  "description": "Task 1 — ShopSphere E-Commerce Platform for CodeAlpha Internship",
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "node backend/server.js",
+    "frontend": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "seed": "node backend/utils/seeder.js",
+    "build": "npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

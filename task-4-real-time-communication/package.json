@@ -1,0 +1,30 @@
+{
+  "name": "nexus-real-time-communication",
+  "version": "1.0.0",
+  "description": "Nexus - Real-Time Video Calling, Whiteboard & In-Meeting Chat Platform",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "seed": "cd backend && npm run seed",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "webrtc",
+    "video-calling",
+    "whiteboard",
+    "real-time",
+    "socket.io",
+    "react",
+    "canvas",
+    "mongodb",
+    "express",
+    "jwt",
+    "codealpha"
+  ],
+  "author": "CodeAlpha Full Stack Intern",
+  "license": "MIT"
+}

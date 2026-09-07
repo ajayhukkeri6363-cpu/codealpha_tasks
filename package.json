@@ -1,20 +1,40 @@
 {
-  "name": "shopsphere",
+  "name": "codealpha-tasks",
   "version": "1.0.0",
-  "description": "ShopSphere — Full Stack E-Commerce Platform for CodeAlpha Internship",
-  "main": "server/server.js",
+  "description": "CodeAlpha Full Stack Development Internship - Master Project Monorepo",
   "scripts": {
-    "start": "node server/server.js",
-    "server": "node server/server.js",
-    "client": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "seed": "node server/utils/seeder.js",
-    "build": "npm run build --prefix client"
+    "install:all": "npm run install:task1 && npm run install:task2 && npm run install:task3 && npm run install:task4",
+    "install:task1": "cd task-1-ecommerce && npm run install:all",
+    "install:task2": "cd task-2-social-media && npm run install:all",
+    "install:task3": "cd task-3-project-management && npm run install:all",
+    "install:task4": "cd task-4-real-time-communication && npm run install:all",
+    "seed:all": "npm run seed:task1 && npm run seed:task2 && npm run seed:task3 && npm run seed:task4",
+    "seed:task1": "cd task-1-ecommerce && npm run seed",
+    "seed:task2": "cd task-2-social-media && npm run seed",
+    "seed:task3": "cd task-3-project-management && npm run seed",
+    "seed:task4": "cd task-4-real-time-communication && npm run seed",
+    "build:all": "npm run build:task1 && npm run build:task2 && npm run build:task3 && npm run build:task4",
+    "build:task1": "cd task-1-ecommerce && npm run build:frontend",
+    "build:task2": "cd task-2-social-media && npm run build:frontend",
+    "build:task3": "cd task-3-project-management && npm run build:frontend",
+    "build:task4": "cd task-4-real-time-communication && npm run build:frontend",
+    "dev:task1": "cd task-1-ecommerce/frontend && npm run dev",
+    "dev:task2": "cd task-2-social-media/frontend && npm run dev",
+    "dev:task3": "cd task-3-project-management/frontend && npm run dev",
+    "dev:task4": "cd task-4-real-time-communication/frontend && npm run dev"
   },
-  "keywords": ["ecommerce", "react", "node", "express", "mongodb", "jwt", "fullstack", "codealpha"],
-  "author": "CodeAlpha Intern",
-  "license": "MIT",
-  "devDependencies": {
-    "concurrently": "^8.2.2"
-  }
+  "keywords": [
+    "codealpha",
+    "internship",
+    "fullstack",
+    "react",
+    "nodejs",
+    "express",
+    "mongodb",
+    "socketio",
+    "webrtc",
+    "tailwind"
+  ],
+  "author": "CodeAlpha Full Stack Intern",
+  "license": "MIT"
 }

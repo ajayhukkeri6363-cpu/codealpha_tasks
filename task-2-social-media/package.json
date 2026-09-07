@@ -1,0 +1,28 @@
+{
+  "name": "pulse-social-media",
+  "version": "1.0.0",
+  "description": "Pulse - Modern Full Stack Social Media & Micro-blogging Platform",
+  "main": "backend/server.js",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "seed": "cd backend && npm run seed",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "build:frontend": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "social-media",
+    "micro-blogging",
+    "real-time",
+    "socket.io",
+    "react",
+    "mongodb",
+    "express",
+    "jwt",
+    "codealpha"
+  ],
+  "author": "CodeAlpha Full Stack Intern",
+  "license": "MIT"
+}
