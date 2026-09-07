@@ -12,6 +12,7 @@ import {
   Users,
   Copy,
   Check,
+  Activity,
 } from 'lucide-react';
 import api from '../services/api';
 import CreateMeetingModal from '../components/CreateMeetingModal';
@@ -99,7 +100,7 @@ export default function LobbyPage() {
     <div className="max-w-6xl mx-auto p-6 md:p-12 space-y-12">
       {/* Hero Section */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Real-Time WebRTC Mesh & Collaborative Canvas</span>
         </div>
@@ -165,8 +166,14 @@ export default function LobbyPage() {
           <div className="flex items-center justify-between text-xs text-slate-400 px-1">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              Ready to connect as <strong>{user?.name}</strong>
+              Connected as <strong className="text-white">{user?.name}</strong>
             </span>
+            <div className="flex items-center gap-1.5">
+              <Activity className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="text-[11px] font-mono text-slate-400">
+                Mic: {!isAudioMuted ? 'Active' : 'Muted'}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -176,7 +183,7 @@ export default function LobbyPage() {
           <div className="p-6 rounded-3xl bg-gradient-to-br from-indigo-900/40 via-slate-900 to-slate-900 border border-indigo-500/30 space-y-4">
             <h3 className="text-lg font-bold text-white">Start an Instant Meeting</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Create a secured room instantly with unique link and invite teammates to join with one click.
+              Create a secure room instantly with unique link and invite teammates to collaborate with one click.
             </p>
             <button
               onClick={() => setIsCreateModalOpen(true)}

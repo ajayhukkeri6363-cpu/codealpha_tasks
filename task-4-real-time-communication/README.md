@@ -1,4 +1,4 @@
-# 🎥 Nexus — Real-Time Video Conferencing & Collaborative Whiteboard Platform
+# 🎥 Nexus — Real-Time WebRTC Video Conferencing & Collaborative Whiteboard Platform
 
 <p align="center">
   <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=1200&q=80" alt="Nexus Video Calling Banner" width="100%" style="border-radius: 12px;" />
@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/Node.js-20.x-green.svg?logo=node.js" alt="Node" />
   <img src="https://img.shields.io/badge/Express-4.21-000000.svg?logo=express" alt="Express" />
   <img src="https://img.shields.io/badge/MongoDB-Mongoose%208.x-brightgreen.svg?logo=mongodb" alt="MongoDB" />
-  <img src="https://img.shields.io/badge/WebRTC-Mesh-red.svg?logo=webrtc" alt="WebRTC" />
+  <img src="https://img.shields.io/badge/WebRTC-P2P%20Mesh-red.svg?logo=webrtc" alt="WebRTC" />
   <img src="https://img.shields.io/badge/Socket.io-4.8-010101.svg?logo=socket.io" alt="Socket.io" />
   <img src="https://img.shields.io/badge/License-MIT-purple.svg" alt="License" />
 </p>
@@ -22,100 +22,88 @@
 ---
 
 ## 📌 Project Overview
-
-**Nexus** is a real-time communication and video collaboration platform engineered for **Task 4 of the CodeAlpha Full Stack Development Internship**.
-
-Nexus allows teams to launch low-latency encrypted video and audio calls, screen share, interact on an HTML5 synchronized vector whiteboard in real time, and chat in dedicated in-meeting messaging channels without installing any desktop software or third-party plugins.
+**Nexus** is a real-time communication platform engineered for **Task 4 of the CodeAlpha Full Stack Development Internship**. Nexus allows distributed teams to launch low-latency WebRTC video and audio calls, screen share, interact on an HTML5 synchronized vector whiteboard in real time, and chat in dedicated in-meeting messaging channels without installing any desktop software or third-party plugins.
 
 ---
 
-## ✨ Key Features
+## ✨ Features Breakdown
 
-### 1. 📹 WebRTC Audio & Video Calling
-- P2P mesh audio/video streaming with adaptive participant grid layout.
-- Camera toggle (On/Off) and Microphone mute/unmute.
-- **Screen Sharing**: Native display capture streaming directly to connected peers.
-- Device setup preview in lobby with hardware verification before entering rooms.
-
-### 2. 🎨 Synchronized Collaborative Whiteboard
-- HTML5 Canvas vector drawing engine synchronized across all peers in sub-10ms latency over Socket.io.
-- **Tools**: Freehand Pen, Eraser, Line, Rectangle, Circle, and Clear Canvas.
-- Color palette selector and dynamic stroke width slider.
-- High-resolution PNG image export with one-click download.
-
-### 3. 💬 Real-Time In-Meeting Chat
-- Persistent meeting chat stream with participant avatars, timestamps, and active user badges.
-- Slide-over chat drawer with unread message counter badge.
-
-### 4. 👥 Room Management & Instant Link Sharing
-- Instant room generator with human-readable room IDs (e.g. `design-sprint`, `eng-sync`).
-- Connected participant roster with live indicators.
-
-### 5. 🛠️ Zero-Config Database
-- Automatic fallback to embedded MongoDB (`mongodb-memory-server`) if a local Mongo server is not active.
-- Comprehensive seeder script with pre-configured meeting rooms and messages.
+### Video & Collaboration Capabilities
+- **WebRTC Audio & Video Calling**: P2P mesh audio/video streaming with adaptive participant grid layout.
+- **Hardware Controls**: Microphone mute/unmute, camera toggle on/off, and native screen sharing (`getDisplayMedia`).
+- **Lobby Device Setup**: Pre-meeting hardware verification for camera and microphone streams before joining conference rooms.
+- **Synchronized Vector Whiteboard**: HTML5 Canvas vector drawing engine synchronized across all peers in sub-10ms latency over Socket.io (Pen, Eraser, Line, Rectangle, Circle, custom colors, thickness slider, and PNG export).
+- **In-Meeting Live Chat**: Persistent meeting chat stream with participant avatars, timestamps, and active user badges.
+- **Room Management**: Instant room generator with human-readable room IDs (e.g. `design-sprint`, `eng-sync`).
 
 ---
 
 ## 🛠️ Technology Stack
-
-| Layer | Technologies |
-|---|---|
-| **Frontend** | React 18, Vite 5, Tailwind CSS 3, Lucide Icons, Date-Fns, Axios, Socket.io-client, HTML5 Canvas |
-| **Backend** | Node.js, Express.js 4, Socket.io 4, CORS, Dotenv |
-| **Database** | MongoDB & Mongoose 8.x with automated `mongodb-memory-server` fallback |
-| **Communication** | WebRTC MediaStream API, WebSockets (Socket.io) |
+- **Frontend**: React 18, Vite 5, Tailwind CSS 3, Lucide Icons, HTML5 Canvas, WebRTC MediaStream API, Axios, Socket.io-client
+- **Backend**: Node.js, Express.js 4, Socket.io 4, WebRTC Signaling Gateway, Mongoose 8.x, JWT Authentication, Bcrypt.js
+- **Database**: MongoDB (with automated `mongodb-memory-server` in-memory fallback)
 
 ---
 
-## 🚀 Port Configuration
+## 🚀 Port Mapping & Environment Variables
 
 | Service | Port | Description |
 |---|---|---|
 | **Frontend Web App** | `http://localhost:5176` | React + Vite UI |
 | **Backend REST & Signaling** | `http://localhost:5003` | Express REST APIs & WebRTC Signaling Gateway |
 
+### Backend `.env` Configuration
+```env
+PORT=5003
+NODE_ENV=development
+MONGO_URI=mongodb://127.0.0.1:27017/nexus_db
+JWT_SECRET=nexus_super_secret_jwt_key_2026
+CLIENT_URL=http://localhost:5176
+```
+
 ---
 
-## 🔑 Demo Credentials
+## 🔑 Evaluator Demo Credentials
 
-Evaluators can sign in immediately with pre-configured demo accounts or click the **One-Click Demo** buttons on the sign-in screen:
-
-| Role / Persona | Email | Password |
-|---|---|---|
-| **Marcus Vance (Host / Lead)** | `marcus@nexus.dev` | `password123` |
-| **Alex Rivera (Tech Lead)** | `alex@nexus.dev` | `password123` |
-| **Elena Rostova (Product Manager)** | `elena@nexus.dev` | `password123` |
-| **Sarah Chen (AI Researcher)** | `sarah@nexus.dev` | `password123` |
+| Role / Persona | Email | Password | Details |
+|---|---|---|---|
+| **Marcus Vance (Host / Lead)** | `marcus@nexus.dev` | `password123` | Pre-configured meeting host account |
+| **Sarah Chen (AI Researcher)** | `sarah@nexus.dev` | `password123` | Remote participant persona |
 
 ---
 
 ## 📦 Quick Start Guide
 
-### 1. Install Dependencies
 ```bash
-# From task-4-real-time-communication root
+# 1. Install dependencies
 npm run install:all
-```
 
-### 2. Seed Database
-```bash
+# 2. Seed database
 npm run seed
+
+# 3. Launch Development Servers
+npm run dev:backend   # Terminal 1: Port 5003
+npm run dev:frontend  # Terminal 2: Port 5176
 ```
-
-### 3. Launch Development Servers
-In separate terminals:
-```bash
-# Terminal 1: Backend (Port 5003)
-npm run dev:backend
-
-# Terminal 2: Frontend (Port 5176)
-npm run dev:frontend
-```
-
-Open `http://localhost:5176` in your browser!
 
 ---
 
-## 📄 License
-This project is open-source and licensed under the [MIT License](LICENSE).
+## 📡 REST & Socket Overview
+
+| Method / Event | Endpoint / Event Name | Access | Description |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | Public | Register new user account |
+| `POST` | `/api/auth/login` | Public | Authenticate user & receive JWT |
+| `POST` | `/api/meetings` | Private | Create new meeting room |
+| `GET` | `/api/meetings/:roomId` | Public | Fetch room info and participants |
+| `GET` | `/api/meetings/:roomId/messages` | Private | Fetch chat history for room |
+| `SOCKET` | `join_room` | Room | Join conference room with socket ID |
+| `SOCKET` | `draw_stroke` | Room | Broadcast vector delta coordinates to whiteboard |
+| `SOCKET` | `clear_whiteboard` | Room | Clear shared whiteboard across all peers |
+| `SOCKET` | `send_chat` | Room | Broadcast and persist in-meeting message |
+
+---
+
+## ⚠️ Known Limitations & Future Roadmap
+- WebRTC mesh architecture is optimized for small team meetings (2-6 peers); Selective Forwarding Unit (SFU) is planned for large 50+ webinar streams.
+- Cloud meeting recording storage is planned for future iterations.
