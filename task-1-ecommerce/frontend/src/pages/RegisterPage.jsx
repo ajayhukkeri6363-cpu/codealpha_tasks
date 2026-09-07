@@ -83,7 +83,7 @@ export const RegisterPage = () => {
                 <input
                   type="text"
                   required
-                  placeholder="John Doe"
+                  placeholder="e.g. Alex Morgan"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium outline-none focus:bg-white focus:border-indigo-500"

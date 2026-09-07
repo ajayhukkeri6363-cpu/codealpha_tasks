@@ -70,23 +70,25 @@ CLIENT_URL=http://localhost:5173
 
 | Role / Persona | Email | Password | Permissions |
 |---|---|---|---|
-| **Administrator** | `admin@shopsphere.com` | `password123` | Full Admin Portal Access (CRUD, Analytics, Order Status) |
-| **Customer User** | `john@example.com` | `password123` | Storefront, Cart, Checkout, Order Tracking |
+| **Administrator** | `admin@shopsphere.com` | `admin123` | Full Admin Portal Access (CRUD, Analytics, Order Status) |
+| **Customer User** | `user@shopsphere.com` | `user123` | Storefront, Cart, Checkout, Order Tracking |
+
+> **Note**: These credentials are demo accounts created specifically for local/project evaluation.
 
 ---
 
 ## 📦 Quick Start Guide
 
 ```bash
-# 1. Install dependencies
-npm run install:all
+# 1. Start Backend (Port 5000)
+cd backend
+npm install
+npm start
 
-# 2. Seed database
-npm run seed
-
-# 3. Launch Development Servers
-npm run dev:backend   # Terminal 1: Port 5000
-npm run dev:frontend  # Terminal 2: Port 5173
+# 2. Start Frontend (Port 5173) in a new terminal
+cd ../frontend
+npm install
+npm run dev
 ```
 
 ---
@@ -100,14 +102,15 @@ npm run dev:frontend  # Terminal 2: Port 5173
 | `GET` | `/api/products` | Public | List products with search, category & filters |
 | `GET` | `/api/products/:id` | Public | Get product details & reviews |
 | `POST` | `/api/products/:id/reviews` | Private | Submit customer review |
+| `POST` | `/api/cart` | Private | Add / modify cart items |
+| `GET` | `/api/cart` | Private | Get user shopping cart |
 | `POST` | `/api/orders` | Private | Create order & decrement stock inventory |
 | `GET` | `/api/orders/myorders` | Private | Fetch logged-in user order history |
-| `GET` | `/api/orders/:id` | Private | Get single order status & timeline |
-| `GET` | `/api/admin/overview` | Admin | Get sales revenue & analytics summary |
+| `GET` | `/api/admin/dashboard` | Admin | Get sales revenue & analytics summary |
 | `PUT` | `/api/admin/orders/:id/status` | Admin | Update order delivery lifecycle status |
 
 ---
 
 ## ⚠️ Known Limitations & Future Roadmap
-- Stripe payment gateway is currently simulated for zero-dependency local testing.
+- Stripe payment gateway is currently simulated via client-side card validation for zero-dependency local testing.
 - Future roadmap includes multi-currency support and automated email receipts.

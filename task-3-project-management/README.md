@@ -68,20 +68,22 @@ CLIENT_URL=http://localhost:5175
 | **Elena Rostova (Product Manager)** | `elena@flowboard.dev` | `password123` | Project manager with created portfolios and tasks |
 | **Alex Rivera (Tech Lead)** | `alex@flowboard.dev` | `password123` | Tech lead with assigned high-priority sprint items |
 
+> **Note**: These credentials are demo accounts created specifically for local/project evaluation.
+
 ---
 
 ## 📦 Quick Start Guide
 
 ```bash
-# 1. Install dependencies
-npm run install:all
+# 1. Start Backend (Port 5002)
+cd backend
+npm install
+npm start
 
-# 2. Seed database
-npm run seed
-
-# 3. Launch Development Servers
-npm run dev:backend   # Terminal 1: Port 5002
-npm run dev:frontend  # Terminal 2: Port 5175
+# 2. Start Frontend (Port 5175) in a new terminal
+cd ../frontend
+npm install
+npm run dev
 ```
 
 ---

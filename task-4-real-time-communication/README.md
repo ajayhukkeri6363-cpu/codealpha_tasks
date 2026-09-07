@@ -67,23 +67,25 @@ CLIENT_URL=http://localhost:5176
 
 | Role / Persona | Email | Password | Details |
 |---|---|---|---|
-| **Marcus Vance (Host / Lead)** | `marcus@nexus.dev` | `password123` | Pre-configured meeting host account |
-| **Sarah Chen (AI Researcher)** | `sarah@nexus.dev` | `password123` | Remote participant persona |
+| **Marcus Vance (Host / Lead)** | `marcus@nexus.dev` | `password123` | Pre-configured meeting host account for `design-sprint` |
+| **Sarah Chen (Participant)** | `sarah@nexus.dev` | `password123` | Remote participant persona |
+
+> **Note**: These credentials are demo accounts created specifically for local/project evaluation.
 
 ---
 
 ## 📦 Quick Start Guide
 
 ```bash
-# 1. Install dependencies
-npm run install:all
+# 1. Start Backend (Port 5003)
+cd backend
+npm install
+npm start
 
-# 2. Seed database
-npm run seed
-
-# 3. Launch Development Servers
-npm run dev:backend   # Terminal 1: Port 5003
-npm run dev:frontend  # Terminal 2: Port 5176
+# 2. Start Frontend (Port 5176) in a new terminal
+cd ../frontend
+npm install
+npm run dev
 ```
 
 ---

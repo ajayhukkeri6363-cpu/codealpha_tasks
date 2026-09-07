@@ -65,25 +65,25 @@ CLIENT_URL=http://localhost:5174
 
 ## 🔑 Evaluator Demo Credentials
 
-| Role / Persona | Email | Password | Details |
-|---|---|---|---|
-| **Alex Rivera (Lead Full Stack)** | `alex@pulse.dev` | `password123` | Active creator profile with posts and followers |
-| **Sarah Chen (AI Researcher)** | `sarah@pulse.dev` | `password123` | AI researcher persona with rich media posts |
+| **Elena Rostova (Lead Designer)** | `elena@pulse.com` (`@elena.designs`) | `password123` | Active creator profile with 5 posts, followers, and notifications |
+| **Leo Vance (Systems Engineer)** | `leo@pulse.com` (`@leovance_dev`) | `password123` | Systems engineer persona with WebRTC posts |
+
+> **Note**: These credentials are demo accounts created specifically for local/project evaluation.
 
 ---
 
 ## 📦 Quick Start Guide
 
 ```bash
-# 1. Install dependencies
-npm run install:all
+# 1. Start Backend (Port 5001)
+cd backend
+npm install
+npm start
 
-# 2. Seed database
-npm run seed
-
-# 3. Launch Development Servers
-npm run dev:backend   # Terminal 1: Port 5001
-npm run dev:frontend  # Terminal 2: Port 5174
+# 2. Start Frontend (Port 5174) in a new terminal
+cd ../frontend
+npm install
+npm run dev
 ```
 
 ---
@@ -93,8 +93,8 @@ npm run dev:frontend  # Terminal 2: Port 5174
 | Method | Endpoint | Access | Description |
 |---|---|---|---|
 | `POST` | `/api/auth/register` | Public | Register new user account |
-| `POST` | `/api/auth/login` | Public | Authenticate user & receive JWT |
-| `GET` | `/api/posts/feed` | Private | Fetch algorithmic & following feeds |
+| `POST` | `/api/auth/login` | Public | Authenticate user (email or username) & receive JWT |
+| `GET` | `/api/posts/explore` | Private | Fetch explore & trending feed |
 | `POST` | `/api/posts` | Private | Create new post with hashtags & media |
 | `PUT` | `/api/posts/:id/like` | Private | Toggle like on post |
 | `GET` | `/api/comments/post/:postId` | Private | Get threaded comments on post |
