@@ -406,6 +406,20 @@ codealpha_tasks/
 
 ---
 
+## 🚀 Deployment Readiness
+
+| Application | Runtime Status | Frontend Deployment | Backend Deployment | Database Requirement |
+| :--- | :---: | :--- | :--- | :--- |
+| **ShopSphere** | `PRODUCTION READY` | Static build (`dist/`) deployable to Vercel / Netlify | Node runtime deployable to Render / Railway / AWS ECS | Embedded Mongo (Local) / MongoDB Atlas (Cloud) |
+| **Pulse** | `PRODUCTION READY` | Static build (`dist/`) deployable to Vercel / Netlify | Node + WebSockets deployable to Render / Railway / AWS | Embedded Mongo (Local) / MongoDB Atlas (Cloud) |
+| **FlowBoard** | `PRODUCTION READY` | Static build (`dist/`) deployable to Vercel / Netlify | Node + WebSockets deployable to Render / Railway / AWS | Embedded Mongo (Local) / MongoDB Atlas (Cloud) |
+| **Nexus** | `PRODUCTION READY` | Static build (`dist/`) deployable to Vercel / Netlify | Node + WebSockets deployable to Render / Railway / AWS | Embedded Mongo (Local) / MongoDB Atlas (Cloud) |
+
+* **Local Evaluation**: Zero setup required. Backends automatically spawn an embedded in-memory MongoDB instance if local MongoDB is not running.
+* **Cloud Production Deployment**: Simply supply a `MONGODB_URI` connection string pointing to MongoDB Atlas or an external database cluster.
+
+---
+
 ## 📄 License
 
 This repository is licensed under the [MIT License](LICENSE). Built for the **CodeAlpha Full Stack Development Internship**.

@@ -106,6 +106,30 @@ npm run dev
 
 ---
 
+## 🎬 Video Demo Walkthrough Script (2–4 Minutes)
+
+1. **Authentication & Room Creation (0:00 - 0:30)**:
+   * Log in with `marcus@nexus.dev` / `password123`. Click Create Room and generate room `design-sprint`.
+2. **Lobby Hardware Pre-Flight (0:30 - 1:00)**:
+   * Enter the meeting lobby. Speak to show real-time mic volume level visualizer. Preview video mirror before clicking "Join Conference".
+3. **WebRTC Video & Screen Sharing (1:00 - 1:45)**:
+   * Demonstrate camera toggle, mic mute, and click "Share Screen" to stream desktop display to connected peers over native WebRTC.
+4. **Collaborative Synchronized Whiteboard (1:45 - 2:45)**:
+   * Switch to Whiteboard tab. Draw with Pen, draw Rectangles and Circles, change stroke colors, and export canvas to PNG snapshot.
+5. **In-Meeting Chat & Participants (2:45 - 3:30)**:
+   * Open the in-meeting Chat drawer. Send timestamped messages, inspect participant roster drawer, and end call cleanly.
+
+---
+
+## 🚀 Deployment Readiness & Environment
+
+* **Deployment Tier**: `PRODUCTION READY` (Tested locally with embedded MongoDB; ready for containerization/Vercel/Render).
+* **Frontend**: Deployable to **Vercel / Netlify** with `npm run build` (output directory: `dist/`). Set `VITE_API_URL` to backend URL.
+* **Backend & Signaling**: Deployable to **Render / Railway / AWS ECS** with `npm start`. Set `PORT`, `MONGO_URI`, and `JWT_SECRET`.
+* **Database**: Embedded in-memory MongoDB is active for zero-config local runs. For cloud production, provide a MongoDB Atlas cluster URI in `MONGO_URI`.
+
+---
+
 ## ⚠️ Known Limitations & Future Roadmap
 - WebRTC mesh architecture is optimized for small team meetings (2-6 peers); Selective Forwarding Unit (SFU) is planned for large 50+ webinar streams.
 - Cloud meeting recording storage is planned for future iterations.

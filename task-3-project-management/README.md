@@ -105,6 +105,32 @@ npm run dev
 
 ---
 
+## 🎬 Video Demo Walkthrough Script (2–4 Minutes)
+
+1. **Authentication & Project Dashboard (0:00 - 0:30)**:
+   * Log in with `elena@flowboard.dev` / `password123`. Tour workspace dashboard cards and sprint progress metrics.
+2. **Project Creation & Key Generation (0:30 - 1:00)**:
+   * Create a new project (e.g. "Cloud Infra Migration", Key: `CLOU`). Add team members and set deadlines.
+3. **Kanban Board & Drag-and-Drop (1:00 - 1:45)**:
+   * Open "Aether UI" Kanban board. Fluidly drag a task card from `In Progress` to `In Review` to observe instant re-indexing and Socket.io broadcast.
+4. **Task Card Deep-Dive & Subtasks (1:45 - 2:30)**:
+   * Click on task card `AETH-2`. Toggle subtask checklist items to see dynamic completion % progress meter update in real time.
+5. **Comments & Priority Badges (2:30 - 3:00)**:
+   * Add a collaboration comment to the task discussion stream. Change priority tag from `High` to `Urgent`.
+6. **Project Analytics & Velocity (3:00 - 3:30)**:
+   * Navigate to Analytics view to inspect velocity rates, status distribution breakdown, and overdue task alerts.
+
+---
+
+## 🚀 Deployment Readiness & Environment
+
+* **Deployment Tier**: `PRODUCTION READY` (Tested locally with embedded MongoDB; ready for containerization/Vercel/Render).
+* **Frontend**: Deployable to **Vercel / Netlify** with `npm run build` (output directory: `dist/`). Set `VITE_API_URL` to backend URL.
+* **Backend**: Deployable to **Render / Railway / AWS ECS** with `npm start`. Set `PORT`, `MONGO_URI`, and `JWT_SECRET`.
+* **Database**: Embedded in-memory MongoDB is active for zero-config local runs. For cloud production, provide a MongoDB Atlas cluster URI in `MONGO_URI`.
+
+---
+
 ## ⚠️ Known Limitations & Future Roadmap
 - Gantt chart timeline view is planned for v2.0.
 - GitHub commit linking and webhook triggers are on the upcoming feature roadmap.

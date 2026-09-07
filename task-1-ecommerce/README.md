@@ -111,6 +111,32 @@ npm run dev
 
 ---
 
+## 🎬 Video Demo Walkthrough Script (2–4 Minutes)
+
+1. **Storefront Landing (0:00 - 0:30)**:
+   * Open `http://localhost:5173`. Show the hero banner, category carousels, and the 20 pre-seeded products.
+2. **Search & Filter (0:30 - 1:00)**:
+   * Type "Sony" into the search bar. Filter by "Electronics" and adjust the price slider.
+3. **Product Details & Reviews (1:00 - 1:30)**:
+   * Click on the Sony Headphones product card. Show specifications, stock badges, and customer reviews.
+4. **Cart & Promo Code (1:30 - 2:00)**:
+   * Add item to cart, open slide-over cart drawer, and apply promo coupon `SAVE10` to observe 10% discount.
+5. **Checkout & Order Placement (2:00 - 2:45)**:
+   * Click Checkout. Fill the 3-step form, place the order, and show the visual order tracking timeline (`Delivered` / `Shipped`).
+6. **Admin Dashboard (2:45 - 3:30)**:
+   * Log in with `admin@shopsphere.com` / `admin123`. Show sales revenue analytics, product inventory, and order status updates.
+
+---
+
+## 🚀 Deployment Readiness & Environment
+
+* **Deployment Tier**: `PRODUCTION READY` (Tested locally with embedded MongoDB; ready for containerization/Vercel/Render).
+* **Frontend**: Deployable to **Vercel / Netlify** with `npm run build` (output directory: `dist/`). Set `VITE_API_URL` to backend URL.
+* **Backend**: Deployable to **Render / Railway / AWS ECS** with `npm start`. Set `PORT`, `MONGODB_URI`, and `JWT_SECRET`.
+* **Database**: Embedded in-memory MongoDB is active for zero-config local runs. For cloud production, provide a MongoDB Atlas cluster URI in `MONGODB_URI`.
+
+---
+
 ## ⚠️ Known Limitations & Future Roadmap
 - Stripe payment gateway is currently simulated via client-side card validation for zero-dependency local testing.
 - Future roadmap includes multi-currency support and automated email receipts.

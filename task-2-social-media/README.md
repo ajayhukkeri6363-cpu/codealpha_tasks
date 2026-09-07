@@ -105,6 +105,30 @@ npm run dev
 
 ---
 
+## 🎬 Video Demo Walkthrough Script (2–4 Minutes)
+
+1. **Authentication & Timeline (0:00 - 0:30)**:
+   * Log in with `elena@pulse.com` / `password123`. Tour the "For You" (Explore) algorithmic feed and "Following" timeline.
+2. **Post Creation (0:30 - 1:00)**:
+   * Click Create Post. Write a post with hashtags (e.g. `#design #uiux`) and an image URL. Publish and view instant rendering.
+3. **Engagements & Micro-Interactions (1:00 - 1:45)**:
+   * Click the heart icon to trigger optimistic like animation. Expand comment thread and add a comment. Save to bookmarks vault.
+4. **Follow & Social Graph (1:45 - 2:30)**:
+   * Open user profile for Leo Vance (`@leovance_dev`). Click Follow. Observe follower counter increment.
+5. **Real-Time Notifications & Mobile Bar (2:30 - 3:15)**:
+   * Open the Notifications dropdown to view Socket.io alert stream. Resize viewport to mobile (<414px) to show bottom app bar.
+
+---
+
+## 🚀 Deployment Readiness & Environment
+
+* **Deployment Tier**: `PRODUCTION READY` (Tested locally with embedded MongoDB; ready for containerization/Vercel/Render).
+* **Frontend**: Deployable to **Vercel / Netlify** with `npm run build` (output directory: `dist/`). Set `VITE_API_URL` to backend URL.
+* **Backend**: Deployable to **Render / Railway / AWS ECS** with `npm start`. Set `PORT`, `MONGODB_URI`, and `JWT_SECRET`.
+* **Database**: Embedded in-memory MongoDB is active for zero-config local runs. For cloud production, provide a MongoDB Atlas cluster URI in `MONGODB_URI`.
+
+---
+
 ## ⚠️ Known Limitations & Future Roadmap
 - Direct 1-on-1 private messaging is scheduled for the next major release.
 - Image uploads currently use hosted URL embeds; S3 cloud storage integration is planned.
