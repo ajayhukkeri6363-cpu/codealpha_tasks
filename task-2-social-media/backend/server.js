@@ -123,9 +123,11 @@ const PORT = process.env.PORT || 5001;
 
 connectDB().then(async () => {
   try {
+    const User = require('./models/User');
+    const userCount = await User.countDocuments();
     const postCount = await Post.countDocuments();
-    if (postCount === 0) {
-      console.log('[Pulse Server] Database is empty. Auto-seeding sample social data...');
+    if (userCount === 0 || postCount === 0) {
+      console.log('[Pulse Server] Database is empty or incomplete. Auto-seeding sample social data...');
       await seedPulseData();
     }
   } catch (err) {

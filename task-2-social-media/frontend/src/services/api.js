@@ -38,6 +38,12 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (err) => {
+    if (err.response?.status === 401) {
+      localStorage.removeItem('pulse_user');
+      if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
+        window.location.href = '/login';
+      }
+    }
     const message = err.response?.data?.message || err.message || 'An error occurred';
     return Promise.reject(new Error(message));
   }
