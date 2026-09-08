@@ -19,7 +19,9 @@ const connectDB = async () => {
 
     try {
       console.log('[Pulse DB] Connecting to MongoDB Atlas...');
-      const conn = await mongoose.connect(uri);
+      const conn = await mongoose.connect(uri, {
+        dbName: 'pulse_prod',
+      });
       console.log(`[Pulse DB] MongoDB Atlas Connected: ${conn.connection.host} / Database: ${conn.connection.name}`);
       return conn;
     } catch (error) {

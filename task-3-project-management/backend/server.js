@@ -118,8 +118,15 @@ const PORT = process.env.PORT || 5002;
 
 connectDB().then(async () => {
   try {
+    const User = require('./models/User');
     const Project = require('./models/Project');
     const seedData = require('./utils/seeder');
+
+    // Clean any orphaned index from legacy shared database collections
+    try {
+      await User.collection.dropIndex('username_1');
+    } catch (idxErr) {}
+
     const count = await Project.countDocuments();
     if (count === 0) {
       console.log('[FlowBoard Server] Database empty. Auto-seeding initial projects and tasks...');

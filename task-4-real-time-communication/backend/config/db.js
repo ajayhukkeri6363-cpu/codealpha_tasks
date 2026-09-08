@@ -20,7 +20,9 @@ const connectDB = async () => {
 
     try {
       console.log('[Nexus DB] Connecting to MongoDB Atlas...');
-      const conn = await mongoose.connect(uri);
+      const conn = await mongoose.connect(uri, {
+        dbName: 'nexus_prod',
+      });
       console.log(`[Nexus DB] MongoDB Atlas Connected: ${conn.connection.host} / Database: ${conn.connection.name}`);
       return conn;
     } catch (error) {
